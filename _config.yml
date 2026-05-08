@@ -1,0 +1,159 @@
+# Site configuration – baas | Ethical Hacker
+
+theme: jekyll-theme-chirpy
+lang: en
+timezone: Europe/Amsterdam
+
+# SEO & identity
+title: baas
+tagline: Ethical hacker interested in Azure & Active Directory
+description: >-
+  Security research, CTF writeups, red teaming & infosec.
+
+# Set when deploying (e.g. https://yourusername.github.io or https://yoursite.com)
+url: "https://0xbaas.com"
+baseurl: ""
+
+# Author / social (no real name – handle only)
+github:
+  username:
+
+twitter:
+  username: baas
+
+social:
+  name: baas
+  email: ""
+  links:
+    - https://x.com/baas
+    - https://twitch.tv/baas
+    - https://instagram.com/baas
+    - https://app.hackthebox.com/users/1442672
+
+# Optional: verification codes for search engines
+webmaster_verifications:
+  google:
+  bing:
+
+# Analytics (optional)
+analytics:
+  google:
+    id:
+  goatcounter:
+    id:
+  umami:
+    id:
+    domain:
+
+pageviews:
+  provider:
+
+# Theme: dark by default (advanced / infosec look)
+theme_mode: dark
+
+# Sidebar avatar: use URL below or set to /assets/img/avatar.png and add your image
+avatar: /assets/img/avatar.jpg
+
+# Social preview image for SEO
+social_preview_image:
+
+# Table of contents in posts
+toc: true
+
+# Comments (disqus, utterances, giscus – leave empty to disable)
+comments:
+  provider:
+  disqus:
+    shortname:
+  utterances:
+    repo:
+    issue_term: pathname
+  giscus:
+    repo:
+    repo_id:
+    category:
+    category_id:
+    mapping: pathname
+    lang: en
+
+assets:
+  self_host:
+    enabled:
+
+pwa:
+  enabled: true
+  cache:
+    enabled: true
+  deny_paths:
+
+paginate: 10
+
+# ----- Theme defaults (do not change unless you know what you're doing) -----
+
+kramdown:
+  footnote_backlink: "&#8617;&#xfe0e;"
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+  span:
+    line_numbers: false
+  block:
+    line_numbers: true
+    start_line: 1
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: true
+      toc: true
+      permalink: /posts/:title/
+  - scope:
+      path: _drafts
+    values:
+      comments: false
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
+
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - docs
+  - tools
+  - README.md
+  - LICENSE
+  - purgecss.js
+  - "*.config.js"
+  - "package*.json"
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/

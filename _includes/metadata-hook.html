@@ -1,0 +1,29 @@
+<!-- Custom dark theme overrides -->
+<link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
+{% if site.avatar %}
+<script>
+(function() {
+  var avatarUrl = {{ site.avatar | relative_url | jsonify }};
+  function applyAvatar() {
+    var el = document.getElementById('avatar');
+    if (!el || !avatarUrl) return;
+    if (el.querySelector('img')) return;
+    var img = document.createElement('img');
+    img.src = avatarUrl;
+    img.alt = 'Profile';
+    img.referrerPolicy = 'no-referrer';
+    img.setAttribute('loading', 'lazy');
+    img.style.width = '100%';
+    img.style.height = '100%';
+    img.style.objectFit = 'cover';
+    img.style.display = 'block';
+    el.appendChild(img);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', applyAvatar);
+  } else {
+    applyAvatar();
+  }
+})();
+</script>
+{% endif %}

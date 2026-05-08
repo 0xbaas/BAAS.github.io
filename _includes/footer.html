@@ -1,0 +1,15 @@
+<footer>
+  <p>
+    <span class="footer-copyright">
+      {{- '©' }}
+      {{ 'now' | date: '%Y' }}
+      {% if site.social.name %}
+      {{ site.social.name }}.
+      {% endif %}
+      {% if site.data.locales[include.lang].copyright.brief %}
+      {{- site.data.locales[include.lang].copyright.brief -}}
+      {% endif %}
+    </span>
+    <span class="footer-socials">socials: @{{ site.social.name | default: 'baas' }}</span>
+  </p>
+</footer>

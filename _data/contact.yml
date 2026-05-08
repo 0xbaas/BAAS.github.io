@@ -1,0 +1,20 @@
+# Sidebar social links – Hack The Box first, then Twitter, Twitch, Instagram
+
+- type: hackthebox
+  icon: "fas fa-cube"
+  url: "https://app.hackthebox.com/users/1442672"
+
+- type: twitter
+  icon: "fa-brands fa-x-twitter"
+
+- type: twitch
+  icon: "fab fa-twitch"
+  url: "https://twitch.tv/baas"
+
+- type: instagram
+  icon: "fab fa-instagram"
+  url: "https://instagram.com/baas"
+
+- type: rss
+  icon: "fas fa-rss"
+  noblank: true
