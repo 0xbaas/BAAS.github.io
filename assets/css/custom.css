@@ -332,3 +332,23 @@ footer .footer-socials {
 .post-figure.transparent-figure img {
   border-radius: 0 !important;
 }
+
+.post-content {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}
+
+.post-content p,
+.post-content li {
+  font-size: 1.0625rem;
+}
+
+.post-lead,
+.cert-card-list,
+.missing-list,
+.decision-box,
+.anti-patterns,
+.clean-takeaway {
+  font-size: 1.0625rem;
+  line-height: 1.85;
+}

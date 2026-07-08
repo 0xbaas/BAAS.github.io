@@ -13,8 +13,6 @@ image:
 
 Over the past year I earned two certifications that get compared a lot: OffSec's **OSEP** and Hack The Box's **HTB CAPE**. I understand why people put them in the same conversation. They are both offensive certifications, both sit above OSCP-level material, and both involve internal networks.
 
-After completing both, I wouldn't put them in the same category.
-
 </div>
 
 <figure class="post-figure wide-figure transparent-figure">
@@ -33,14 +31,21 @@ That meant I was not starting from zero. There was already a decent base in Acti
 
 ## What OSEP is good for
 
-OSEP teaches useful offensive skills, especially around getting code to run in environments where security controls are enabled. The course gives you hands-on practice with **AV evasion concepts, process injection, reflective loading, Windows internals, and custom C# tooling**.
+OSEP is at its best when you treat it as an introduction to offensive tooling, AV evasion and Windows internals, not as a advanced Active Directory course.
+
+The course gives you hands-on practice with **AV evasion concepts, process injection, reflective loading, Windows internals and custom C# tooling**. The malware-development style content in OSEP is mostly written in C#. That is not the most common language for serious malware development, but it does make the concepts approachable for people coming from OSCP or general penetration testing. As an introduction, it works pretty well.
+
+That is where OSEP still has value. You get exposure to the basics of the PE structure, reflective DLL injection and how payloads are loaded into memory. Reflective DLL injection is an old technique, but the concept is still relevant because Metasploit and other offensive frameworks still rely on similar ideas.
+
+AMSI is another good example. A lot of testers just throw an AMSI bypass into their payload and move on. OSEP pushes you to ask better questions: what is AMSI actually doing, where does it sit in the execution flow, and what are you actually patching?
 
 The strongest part of OSEP is that it forces you to stop being a copy-paste RTO. Payload gets caught? You fix it. Tool breaks? You modify it. You learn to troubleshoot your own attacks instead of relying on pre-built binaries / BOFs that magically work in a lab.
 
 <div class="cert-card-list" markdown="1">
 
 - **AV evasion concepts** — understanding why detection triggers and how to work around it.
-- **Process injection and reflective loading** — core foundations behind a lot of offensive tooling.
+- **PE structure and reflective loading** — core basics behind how payloads are loaded into memory.
+- **AMSI internals** — understanding what is being inspected and what a bypass is actually changing.
 - **Windows internals** — practical knowledge that becomes useful once you start modifying tools.
 - **Custom C# tooling** — building and adapting your own code instead of only running public tools.
 - **Linux domain-joined hosts** — keytabs, ticket caches and Kerberos from a Linux perspective.
@@ -55,7 +60,7 @@ As an Active Directory course, OSEP feels outdated and should be updated.
 
 The AD content gives you some domain attacks, Kerberos, lateral movement and forest material, but it does not feel like a current advanced AD exploitation course. Compared to CAPE, the attack paths felt more predictable, the AD difficulty felt much lower, and the material did not push me into the same level of enumeration, chaining and reasoning.
 
-OSEP still teaches useful offensive execution, but as an AD course, it misses too many modern techniques that show up in internal assessments.
+OSEP still teaches useful offensive tradecraft, but as an Active Directory course, it leaves too many modern and commonly abused techniques out of scope.
 
 Here are a couple of examples that should be covered in any serious modern AD course which isn't the case for OSEP:
 
@@ -100,7 +105,7 @@ CAPE punishes lazy methodology.
 
 If your whole strategy is "run BloodHound and wait for a path", you will definitely struggle. Following BloodHound blindly actually made me waste time during my exam. There will be a lot of moments where you know what you need to do, but still have to figure out how to exploit it properly.
 
-Kerberos is a good example. CAPE pushes you to really understand Kerberos as a protocol. What does the ticket represent? Which service is it for? What does the SPN mean? Is this a ghost SPN? Why does this authentication flow behave differently? Why does this delegation path matter?
+Kerberos is the perfect example. CAPE pushes you to understand Kerberos at the protocol level. What does a ticket actually represent? Which service is it meant for? What does the SPN tell you, and what happens when that SPN is missing or pointing somewhere unexpected? Are you dealing with a ghost SPN, an SPN-jacking opportunity or an SPN-less situation? Are you looking at the normal AS/TGS flow, U2U, S4U2Self or S4U2Proxy? And why does all of this matter for delegation, ticket abuse and the attack path in front of you?
 
 The same goes for NTLM. CAPE makes it painfully clear why NTLM keeps causing problems in enterprise networks. Poisoning, relaying, coercion, weak signing configurations, Pass-the-Hash and exposed services start connecting into one bigger picture.
 
@@ -110,8 +115,7 @@ So again, it is mostly about understanding the environment well enough to find t
 
 <figure class="post-figure">
   <img src="/assets/img/posts/osep-vs-htb-cape/cape-path-start.jpg" alt="Starting the HTB Active Directory Penetration Tester path">
-  <figcaption>I started the path in December 2024 and finished the course material in October 2025. That long preparation period says enough. CAPE did not feel like a normal certification path; it felt like building a full Active Directory methodology over time.
-  </figcaption>
+  <figcaption>25% through the course in January 2025</figcaption>
 </figure>
 
 <figure class="post-figure">
@@ -127,7 +131,7 @@ So again, it is mostly about understanding the environment well enough to find t
   <img src="/assets/img/posts/osep-vs-htb-cape/exam-comparisons.png" alt="OSEP vs CAPE exam">
 </figure>
 
-OSEP was honestly not as hard as I expected. The exam was really fun, but the big environment felt manageable and somewhat straightforward. 
+OSEP was honestly not as hard as I expected. The exam was really fun, but the big environment felt manageable and somewhat straightforward.
 
 OSEP is a 48-hour hands-on exam. You compromise machines, pivot, deal with AV and write a report. You will need at least 10 points or get the `secret.txt`. Without relying on a C2, I completed it in around nine hours.
 
@@ -160,7 +164,7 @@ CAPE is a 10-day hands-on exam across multiple networks. You need to collect eno
 
 ## Which one should you choose first?
 
-If you care about OffSec recognition and want a logical follow-up after OSCP, OSEP still makes sense. It is well known, looks good on a CV and teaches useful evasion skills, as mentioned earlier. It can also open doors if your goal is to move toward red teaming. 
+If you care about OffSec recognition and want a logical follow-up after OSCP, OSEP is still a solid choice. It is well known, looks good on a CV and teaches useful evasion skills, as mentioned earlier. It can also open doors if your goal is to move toward red teaming.
 
 The reality is that most HR people, and even many technical interviewers, will recognize OSEP long before they understand what 'HTB CAPE' even is.
 
@@ -168,12 +172,11 @@ HTB CAPE, on the other hand, will make you a much better hacker and much stronge
 
 But for now, most people have no idea what HTB CAPE is, let alone how difficult or valuable it actually is.
 
-
-## Prep resources I recommend if you came this far :)
+## Prep resources that helped me
 
 <div class="decision-box" markdown="1">
 
-- **For CAPE:** VulnLab AD Chains and mini Pro Labs on HTB.
+- **For CAPE:** VulnLab AD Chains and Mini Pro Labs on HTB.
 - **For OSEP:** The Pro Lab Zephyr, completing it both with and without a C2.
 - **For OSEP specifically:** get very comfortable with PowerShell ;)
 
@@ -181,8 +184,10 @@ But for now, most people have no idea what HTB CAPE is, let alone how difficult 
 
 ## Final note
 
-OSEP is a good certification, but not for the reason a lot of people think. It is not a modern Active Directory certification. It is an evasion and offensive tooling certification with some Active Directory in it.
+OSEP is a good certification, but not for the reason a lot of people think. It is not a modern Active Directory certification. It is more about evasion, Windows internals, offensive tooling and the basics behind payload development, with some Active Directory in it.
 
-And that is fine, as long as you know what you are getting into. 
+And that is fine, as long as you know what you are getting into.
+
+That is why comparing OSEP and CAPE too directly does not really make sense. OSEP gives you a useful foundation in offensive tooling and evasion. CAPE is the one that forces you to become stronger at modern Active Directory.
 
 If you are working on one of these certifications soon: good luck, take proper notes and enjoy the journey!

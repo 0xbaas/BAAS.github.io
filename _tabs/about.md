@@ -11,7 +11,7 @@ title: About
 
 # baas
 
-Ethical hacker and Python developer based in the Netherlands. I focus on Active Directory, Azure/Entra ID, and offensive security. I use this blog to share certification reviews, Azure notes, AD research, and lessons from real security assessments.
+Ethical hacker based in the Netherlands. My focus is on Active Directory, Azure/Entra ID, and offensive security. Alongside my work in ethical hacking, I work as a Security Engineer for the Dutch government.
 
 
 ## Certifications
