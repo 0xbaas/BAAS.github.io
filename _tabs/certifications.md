@@ -6,11 +6,17 @@ order: 2
 permalink: /certifications/
 ---
 
-<ul>
-  <li>OSEP <span class="text-muted">&mdash; 2026-04-25</span></li>
-  <li>HTB CAPE <span class="text-muted">&mdash; 2025-11-18</span></li>
-  <li>CARTE <span class="text-muted">&mdash; 2025-08-21</span></li>
-  <li>CRTP <span class="text-muted">&mdash; 2025-02-22</span></li>
-  <li>CRTO <span class="text-muted">&mdash; 2025-01-18</span></li>
-  <li>OSCP <span class="text-muted">&mdash; 2024-10-24</span></li>
-</ul>
+These are the certifications I currently hold, listed from newest to oldest.
+
+| Certification | Issuer | Year | Notes |
+|---|---|---:|---|
+| **OSEP** — OffSec Experienced Penetration Tester | OffSec | 2026 | Evasion, Windows internals, and custom offensive tooling |
+| **HTB CAPE** — Certified Active Directory Pentesting Expert | Hack The Box | 2025 | Advanced Active Directory, Kerberos, AD CS, trusts, and complex attack paths |
+| **CARTE** — Certified Azure Red Team Expert | Altered Security | 2025 | Azure and Entra ID red team tradecraft |
+| **CRTP** — Certified Red Team Professional | Altered Security | 2025 | Active Directory fundamentals and attack chaining |
+| **CRTO** — Certified Red Team Operator | Zero-Point Security | 2025 | Red team operations with Cobalt Strike and OPSEC in mind |
+| **OSCP** — OffSec Certified Professional | OffSec | 2024 | Practical penetration testing fundamentals |
+
+## Featured comparison
+
+[OSEP vs HTB CAPE: My honest take after passing both](/posts/osep-vs-cape/)
