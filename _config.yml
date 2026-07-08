@@ -6,15 +6,15 @@ timezone: Europe/Amsterdam
 
 # SEO & identity
 title: baas
-tagline: Ethical hacker in Active Directory, Azure & offensive security
+tagline: Ethical hacker focused on Active Directory, Azure and offensive security
 description: >-
   Practical notes on Active Directory, Azure/Entra ID, red teaming, certifications and offensive security.
 
-# Set when deploying (e.g. https://yourusername.github.io or https://yoursite.com)
+
 url: "https://0xbaas.com"
 baseurl: ""
 
-# Author / social (no real name – handle only)
+# Author / social
 github:
   username:
 
