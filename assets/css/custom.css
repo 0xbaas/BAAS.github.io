@@ -266,11 +266,42 @@ footer .footer-socials {
   box-shadow: rgb(0 0 0 / 28%) 0 14px 36px;
 }
 
+/* Chirpy wraps figure images in a lightbox anchor (a.img-link.shimmer) that is
+   inline-flex with overflow:hidden, which can crop tall diagrams. Render that
+   wrapper as a normal full-width block so images always show at natural aspect. */
+.post-figure .img-link {
+  display: block !important;
+  overflow: visible !important;
+  background: none !important;
+}
+.post-figure .img-link::before {
+  content: none !important;
+}
+.post-figure .img-link img {
+  width: 100%;
+  height: auto;
+}
+
 .post-figure figcaption {
   margin-top: 0.65rem;
   color: var(--text-muted-color);
   font-size: 0.92rem;
   text-align: center;
+}
+
+/* Post-page banner. Chirpy's .preview-img is a 40/21 box, but on post pages it
+   applies height:100%+object-fit:cover to the <img> WITHOUT width:100%, inside an
+   inline-flex .img-link wrapper. That can leave the banner from filling the box
+   and looking cropped. The banner artwork is authored at exactly 40/21, so make
+   the wrapper a normal block and let the image fill the box edge to edge. This
+   keeps aspect-ratio:40/21 (no letterbox) and cover matches the image exactly. */
+.mt-3.mb-3 > .preview-img.img-link {
+  display: block !important;
+}
+.mt-3.mb-3 > .preview-img > img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
 }
 
 .wide-figure img {
@@ -351,4 +382,468 @@ footer .footer-socials {
 .clean-takeaway {
   font-size: 1.0625rem;
   line-height: 1.85;
+}
+
+/* =====================================================================
+   Azure Storage post — scoped component system (all classes az-*)
+   Palette: blue = neutral/structure, red = attacker/danger,
+   green = defender/safe, amber = "it depends / workload-dependent".
+   ===================================================================== */
+:root {
+  --az-red: #ff6f7d;
+  --az-red-dim: rgba(255, 111, 125, 0.12);
+  --az-blue: #7eb8fa;
+  --az-blue-dim: rgba(126, 184, 250, 0.10);
+  --az-green: #4cc38a;
+  --az-green-dim: rgba(76, 195, 138, 0.10);
+  --az-amber: #e0a458;
+  --az-amber-dim: rgba(224, 164, 88, 0.12);
+  --az-panel: #131317;
+  --az-panel-2: #0e0e11;
+  --az-ink: #09090b;
+  --az-mono: ui-monospace, "SFMono-Regular", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, monospace;
+}
+
+/* --- Hero ---------------------------------------------------------- */
+.az-hero {
+  position: relative;
+  margin: 1.4rem 0 2.4rem;
+  padding: 1.7rem 1.6rem 1.75rem;
+  border: 1px solid var(--main-border-color);
+  border-radius: 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 10% 6%, rgba(126, 184, 250, 0.16), transparent 42%),
+    radial-gradient(circle at 92% 0%, rgba(255, 111, 125, 0.13), transparent 44%),
+    linear-gradient(160deg, #141419, #0b0b0f 72%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+}
+.az-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(126, 184, 250, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(126, 184, 250, 0.045) 1px, transparent 1px);
+  background-size: 22px 22px;
+  -webkit-mask-image: linear-gradient(180deg, #000, transparent 85%);
+  mask-image: linear-gradient(180deg, #000, transparent 85%);
+  pointer-events: none;
+}
+.az-hero > * { position: relative; z-index: 1; }
+.az-hero .az-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--az-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--az-blue);
+  padding: 0.3rem 0.65rem;
+  border: 1px solid rgba(126, 184, 250, 0.3);
+  border-radius: 999px;
+  background: rgba(126, 184, 250, 0.06);
+}
+.az-hero h1,
+.az-hero .az-h1 {
+  margin: 0.9rem 0 0.5rem;
+  font-size: clamp(1.9rem, 4.4vw, 3rem);
+  line-height: 1.06;
+  color: var(--heading-color);
+  letter-spacing: -0.01em;
+}
+.az-hero .az-sub {
+  margin: 0 0 1.1rem;
+  color: var(--text-color);
+  font-size: 1.06rem;
+  max-width: 60ch;
+}
+.az-hero .az-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+.az-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.76rem;
+  color: var(--text-muted-color);
+  padding: 0.28rem 0.6rem;
+  border: 1px solid var(--main-border-color);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.az-chip strong { color: var(--heading-color); font-weight: 600; }
+
+/* --- Callouts (dangerous setting / red-team / blue-team / depends) -- */
+.az-note {
+  position: relative;
+  margin: 1.6rem 0;
+  padding: 0.95rem 1.15rem 0.6rem 1.2rem;
+  border: 1px solid var(--main-border-color);
+  border-left-width: 4px;
+  border-radius: 12px;
+  background: var(--az-panel);
+}
+.az-note > :last-child { margin-bottom: 0.4rem; }
+.az-note .az-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--az-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  margin-bottom: 0.45rem;
+}
+.az-note.red   { border-left-color: var(--az-red);   background: linear-gradient(90deg, var(--az-red-dim), transparent 65%); }
+.az-note.blue  { border-left-color: var(--az-blue);  background: linear-gradient(90deg, var(--az-blue-dim), transparent 65%); }
+.az-note.green { border-left-color: var(--az-green); background: linear-gradient(90deg, var(--az-green-dim), transparent 65%); }
+.az-note.amber { border-left-color: var(--az-amber); background: linear-gradient(90deg, var(--az-amber-dim), transparent 65%); }
+.az-note.red .az-label   { color: var(--az-red); }
+.az-note.blue .az-label  { color: var(--az-blue); }
+.az-note.green .az-label { color: var(--az-green); }
+.az-note.amber .az-label { color: var(--az-amber); }
+.az-note code { background: rgba(255, 255, 255, 0.06); }
+
+/* --- Red-team / Blue-team split ------------------------------------ */
+.az-rb { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.8rem 0; }
+.az-rb .az-rb-card {
+  border: 1px solid var(--main-border-color);
+  border-radius: 14px;
+  padding: 0.9rem 1.1rem 0.6rem;
+  background: var(--az-panel);
+}
+.az-rb .red  { border-color: rgba(255, 111, 125, 0.4); box-shadow: inset 3px 0 0 var(--az-red); }
+.az-rb .blue { border-color: rgba(126, 184, 250, 0.4); box-shadow: inset 3px 0 0 var(--az-blue); }
+.az-rb h4 { margin: 0 0 0.5rem; display: flex; align-items: center; gap: 0.45rem; font-size: 0.95rem; letter-spacing: 0.02em; }
+.az-rb .red h4  { color: #ff8a95; }
+.az-rb .blue h4 { color: #9cc7fb; }
+.az-rb .az-rb-card > :last-child { margin-bottom: 0.4rem; }
+
+/* --- Misconception vs reality cards -------------------------------- */
+.az-myth-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.9rem 0; }
+.az-myth {
+  border: 1px solid var(--main-border-color);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--az-panel);
+}
+.az-myth .m, .az-myth .r { padding: 0.85rem 1rem; }
+.az-myth .m { border-left: 4px solid var(--az-red); background: var(--az-red-dim); }
+.az-myth .r { border-left: 4px solid var(--az-green); background: var(--az-green-dim); border-top: 1px solid var(--main-border-color); }
+.az-myth .lbl {
+  display: block;
+  font-family: var(--az-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.az-myth .m .lbl { color: var(--az-red); }
+.az-myth .r .lbl { color: var(--az-green); }
+.az-myth p { margin: 0; font-size: 0.98rem; }
+
+/* --- Storage-account anatomy diagram ------------------------------- */
+.az-anatomy {
+  margin: 2rem 0;
+  border: 1px solid var(--main-border-color);
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at 85% 12%, rgba(126, 184, 250, 0.06), transparent 45%),
+    var(--az-panel-2);
+  padding: 1.1rem 1.1rem 1.2rem;
+}
+.az-anatomy .az-acct-name {
+  font-family: var(--az-mono);
+  font-size: 0.82rem;
+  color: var(--az-blue);
+  margin-bottom: 0.7rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.az-anatomy .az-acct-name::before {
+  content: "";
+  width: 9px; height: 9px; border-radius: 2px;
+  background: var(--az-blue);
+  box-shadow: 0 0 10px var(--az-blue);
+}
+.az-endpoints { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.9rem; }
+.az-endpoints .ep {
+  font-family: var(--az-mono);
+  font-size: 0.74rem;
+  color: var(--text-color);
+  padding: 0.28rem 0.55rem;
+  border: 1px solid var(--main-border-color);
+  border-radius: 7px;
+  background: var(--az-ink);
+}
+.az-endpoints .ep b { color: var(--az-blue); font-weight: 600; }
+.az-svcs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.6rem; margin-bottom: 0.9rem; }
+.az-svc {
+  border: 1px solid var(--main-border-color);
+  border-radius: 10px;
+  padding: 0.7rem 0.75rem;
+  background: var(--az-panel);
+  text-align: center;
+}
+.az-svc .n { display: block; font-weight: 600; color: var(--heading-color); font-size: 0.92rem; }
+.az-svc .d { display: block; color: var(--text-muted-color); font-size: 0.76rem; margin-top: 0.2rem; }
+.az-scope {
+  border: 1px dashed rgba(224, 164, 88, 0.45);
+  border-radius: 10px;
+  padding: 0.65rem 0.8rem;
+  background: rgba(224, 164, 88, 0.05);
+}
+.az-scope .h {
+  font-family: var(--az-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--az-amber);
+  margin-bottom: 0.4rem;
+}
+.az-scope .items { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+.az-scope .items span {
+  font-family: var(--az-mono);
+  font-size: 0.73rem;
+  color: var(--text-color);
+  padding: 0.2rem 0.45rem;
+  border: 1px solid var(--main-border-color);
+  border-radius: 6px;
+  background: var(--az-ink);
+}
+
+/* --- Management plane vs data plane -------------------------------- */
+.az-planes { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0 0.6rem; }
+.az-plane {
+  border: 1px solid var(--main-border-color);
+  border-radius: 14px;
+  padding: 1rem 1.1rem 0.7rem;
+  background: var(--az-panel);
+}
+.az-plane h4 { margin: 0 0 0.2rem; font-size: 0.98rem; color: var(--heading-color); }
+.az-plane .host { font-family: var(--az-mono); font-size: 0.76rem; color: var(--az-blue); }
+.az-plane ul { margin: 0.6rem 0 0.4rem 1.1rem; }
+.az-plane li { font-size: 0.9rem; margin: 0.2rem 0; }
+.az-cross {
+  margin: 0 0 1.6rem;
+  border: 1px solid rgba(255, 111, 125, 0.4);
+  border-radius: 12px;
+  padding: 0.8rem 1rem;
+  background: linear-gradient(90deg, var(--az-red-dim), transparent 70%);
+  border-left: 4px solid var(--az-red);
+}
+.az-cross .h {
+  font-family: var(--az-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--az-red);
+  margin-bottom: 0.35rem;
+}
+.az-cross code { background: rgba(255, 255, 255, 0.06); }
+
+/* --- Layered hardening model --------------------------------------- */
+.az-layers { margin: 2rem 0; display: flex; flex-direction: column; gap: 0.55rem; }
+.az-layer {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 0.9rem;
+  align-items: center;
+  border: 1px solid var(--main-border-color);
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  background: var(--az-panel);
+  border-left: 4px solid var(--az-blue);
+}
+.az-layer .num {
+  font-family: var(--az-mono);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--az-blue);
+  text-align: center;
+}
+.az-layer h4 { margin: 0 0 0.15rem; font-size: 0.98rem; color: var(--heading-color); }
+.az-layer p { margin: 0; font-size: 0.9rem; color: var(--text-muted-color); }
+
+/* --- SAS token anatomy --------------------------------------------- */
+.az-sas { margin: 2rem 0; }
+.az-sas .token {
+  font-family: var(--az-mono);
+  font-size: 0.82rem;
+  line-height: 2;
+  word-break: break-all;
+  border: 1px solid var(--main-border-color);
+  border-radius: 12px;
+  background: var(--az-ink);
+  padding: 0.9rem 1rem;
+}
+.az-sas .token .seg { padding: 0.05rem 0.2rem; border-radius: 4px; white-space: nowrap; }
+.az-sas .token .k1 { background: rgba(126, 184, 250, 0.18); color: #cfe3fd; }
+.az-sas .token .k2 { background: rgba(76, 195, 138, 0.18); color: #bff0d8; }
+.az-sas .token .k3 { background: rgba(224, 164, 88, 0.18); color: #f3d9b4; }
+.az-sas .token .k4 { background: rgba(255, 111, 125, 0.20); color: #ffd2d6; }
+.az-sas .legend { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1.2rem; margin-top: 0.85rem; }
+.az-sas .legend div { font-size: 0.86rem; display: flex; gap: 0.5rem; align-items: baseline; }
+.az-sas .legend .sw { width: 11px; height: 11px; border-radius: 3px; flex: none; transform: translateY(1px); }
+.az-sas .legend .s1 { background: #7eb8fa; }
+.az-sas .legend .s2 { background: #4cc38a; }
+.az-sas .legend .s3 { background: #e0a458; }
+.az-sas .legend .s4 { background: #ff6f7d; }
+.az-sas .legend code { font-size: 0.8rem; background: rgba(255,255,255,0.05); }
+
+/* --- Command tabs (CLI / PowerShell / Terraform) ------------------- */
+.az-tabs {
+  margin: 1.85rem 0;
+  border: 1px solid var(--main-border-color);
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--az-ink);
+}
+.az-tablist { display: flex; flex-wrap: wrap; background: var(--az-panel); border-bottom: 1px solid var(--main-border-color); }
+.az-tablist button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--text-muted-color);
+  font: inherit;
+  font-size: 0.82rem;
+  padding: 0.6rem 1.05rem;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.az-tablist button:hover { color: var(--text-color); }
+.az-tablist button[aria-selected="true"] { color: var(--heading-color); border-bottom-color: var(--az-blue); }
+.az-tabs [role="tabpanel"][hidden] { display: none; }
+.az-tabs [role="tabpanel"] > pre,
+.az-tabs [role="tabpanel"] > div > pre,
+.az-tabs [role="tabpanel"] .highlight { margin: 0 !important; border: 0 !important; border-radius: 0 !important; }
+.az-tabs [role="tabpanel"] > pre { padding: 0.9rem 1rem; }
+
+/* --- Before / after config panels ---------------------------------- */
+.az-config { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.85rem 0; }
+.az-config .pane { border: 1px solid var(--main-border-color); border-radius: 12px; overflow: hidden; background: var(--az-ink); }
+.az-config .pane .cap {
+  font-family: var(--az-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.85rem;
+  border-bottom: 1px solid var(--main-border-color);
+}
+.az-config .before .cap { color: var(--az-red); background: var(--az-red-dim); }
+.az-config .after .cap  { color: var(--az-green); background: var(--az-green-dim); }
+.az-config pre {
+  margin: 0; border: 0; border-radius: 0;
+  font-family: var(--az-mono);
+  font-size: 0.8rem;
+  line-height: 1.65;
+  padding: 0.8rem 0.9rem;
+  overflow-x: auto;
+}
+.az-config .del { color: #ff9aa2; display: block; }
+.az-config .add { color: #8fe3b8; display: block; }
+.az-config .dim { color: var(--text-muted-color); display: block; }
+
+/* --- Attack-path flow ---------------------------------------------- */
+.az-flow { margin: 1.85rem 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.az-flow .step {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 0.8rem;
+  align-items: start;
+  border: 1px solid var(--main-border-color);
+  border-left: 4px solid var(--az-red);
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  background: var(--az-panel);
+}
+.az-flow .step .n {
+  font-family: var(--az-mono);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--az-red);
+  border: 1px solid rgba(255, 111, 125, 0.4);
+  border-radius: 7px;
+  text-align: center;
+  padding: 0.15rem 0;
+  background: var(--az-ink);
+}
+.az-flow .step p { margin: 0; font-size: 0.92rem; }
+.az-flow .step .op { font-family: var(--az-mono); font-size: 0.82rem; color: var(--az-amber); }
+.az-flow .arrow { text-align: center; color: var(--text-muted-color); line-height: 0.6; font-size: 1.1rem; }
+.az-flow .step.defend { border-left-color: var(--az-green); }
+.az-flow .step.defend .n { color: var(--az-green); border-color: rgba(76, 195, 138, 0.4); }
+
+/* --- Decision tree ------------------------------------------------- */
+.az-tree { margin: 2rem 0; display: flex; flex-direction: column; gap: 0.6rem; }
+.az-tree .q {
+  border: 1px solid rgba(126, 184, 250, 0.35);
+  border-radius: 10px;
+  padding: 0.7rem 0.95rem;
+  background: var(--az-blue-dim);
+  font-weight: 600;
+  color: var(--heading-color);
+}
+.az-tree .q .qmark { color: var(--az-blue); font-family: var(--az-mono); margin-right: 0.4rem; }
+.az-tree .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+.az-tree .opt {
+  border: 1px solid var(--main-border-color);
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  background: var(--az-panel);
+  font-size: 0.9rem;
+}
+.az-tree .opt .tag {
+  font-family: var(--az-mono);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.az-tree .opt.yes { border-left: 3px solid var(--az-green); }
+.az-tree .opt.no  { border-left: 3px solid var(--az-red); }
+.az-tree .opt.yes .tag { color: var(--az-green); }
+.az-tree .opt.no .tag  { color: var(--az-red); }
+
+/* --- Verification matrix ------------------------------------------- */
+.az-matrix { margin: 1.9rem 0; overflow-x: auto; }
+.az-matrix table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.az-matrix th, .az-matrix td { border: 1px solid var(--main-border-color); padding: 0.5rem 0.7rem; text-align: left; vertical-align: top; }
+.az-matrix thead th { background: var(--az-panel); color: var(--heading-color); font-size: 0.82rem; letter-spacing: 0.02em; }
+.az-matrix tbody tr:nth-child(odd) td { background: rgba(255, 255, 255, 0.015); }
+.az-matrix .check { color: var(--az-green); font-weight: 700; }
+.az-matrix .cross { color: var(--az-red); font-weight: 700; }
+.az-matrix .dep   { color: var(--az-amber); font-weight: 700; }
+.az-matrix code { font-size: 0.82rem; background: rgba(255, 255, 255, 0.05); }
+
+/* --- Small helpers -------------------------------------------------- */
+.az-kbd-note { color: var(--text-muted-color); font-size: 0.9rem; }
+.az-post-content h2 { scroll-margin-top: 4rem; }
+
+/* Post subtitle (rendered from the front-matter description). */
+.post-desc {
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--text-muted-color);
+}
+
+/* --- Responsive collapse ------------------------------------------- */
+@media (max-width: 860px) {
+  .az-rb,
+  .az-myth-grid,
+  .az-planes,
+  .az-config,
+  .az-svcs,
+  .az-sas .legend,
+  .az-tree .opts { grid-template-columns: 1fr; }
+  .az-svcs { grid-template-columns: repeat(2, 1fr); }
+  .az-hero { padding: 1.2rem 1.1rem; }
+  .az-layer { grid-template-columns: 34px 1fr; gap: 0.7rem; }
 }

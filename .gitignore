@@ -6,3 +6,7 @@ _backup/
 *.gem
 vendor/
 .bundle/
+
+# Internal working files — contain unsanitised engagement identifiers. Do NOT publish.
+_research/
+_drafts/

@@ -10,6 +10,10 @@ on:
       - README.md
       - LICENSE
   workflow_dispatch:
+  schedule:
+    # Rebuild every Monday 07:15 UTC (~09:15 Amsterdam, CEST) so scheduled/
+    # future-dated posts go live automatically on their publish date.
+    - cron: "15 7 * * 1"
 
 permissions:
   contents: read
