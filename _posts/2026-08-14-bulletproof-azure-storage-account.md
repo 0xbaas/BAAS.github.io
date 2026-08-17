@@ -12,7 +12,7 @@ During an Azure security assessment, I anonymously accessed approximately 1.4 mi
 
 ## 1 of the 20 Storage Accounts stood out
 
-For Azure security assessments, I request Reader access across the agreed scope. It lets me enumerate resources and inspect their configuration without changing anything. Reader shows me how a Storage Account is configured, but it does not let me open the data inside it.
+For Azure security assessments, I request Reader access across the agreed scope. It lets me enumerate resources and inspect their configuration without changing anything. Reader shows me how an Azure resource is configured, but it does not let me open the data inside it.
 
 My custom tool, which I plan to release in the coming weeks, found 20 Storage Accounts spread across multiple subscriptions and flagged security issues on 17 of them. Most were still protected from the public internet by network restrictions.
 
