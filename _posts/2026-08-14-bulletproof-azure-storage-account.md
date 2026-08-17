@@ -14,17 +14,15 @@ During an Azure security assessment, I anonymously accessed approximately 1.4 mi
 
 For Azure security assessments, I request Reader access across the agreed scope. It lets me enumerate resources and inspect their configuration without changing anything. Reader shows me how a Storage Account is configured, but it does not let me open the data inside it.
 
-My custom tool found 20 Storage Accounts spread across multiple subscriptions and flagged security issues on 17 of them. Most were still protected from the public internet by network restrictions.
+My custom tool, which I plan to release in the coming weeks, found 20 Storage Accounts spread across multiple subscriptions and flagged security issues on 17 of them. Most were still protected from the public internet by network restrictions.
 
-Then 1 result stood out. My tool returned the containers belonging to the Storage Account and suggested they might be publicly accessible.
+Then 1 result stood out: it returned the containers belonging to the Storage Account and flagged them as possibly publicly accessible, which I honestly did not believe at first.
 
-I honestly did not believe it at first.
-
-With the Storage Account and container name already identified by my tool, I connected through Azure Storage Explorer without providing any credentials. No data-plane role, storage key or SAS token.
+With the Storage Account and container name already in hand, I opened Azure Storage Explorer and tried to connect anonymously. I did not provide a data-plane role, storage key or SAS token.
 
 **The connection worked.**
 
-I was honestly shocked. I started analysing the container to understand what was inside and how much data had been exposed. The counter kept going up. It passed 640,592 inspected items and showed no sign of stopping.
+I immediately started analysing the container to understand what was inside and how much data had been exposed. The counter kept climbing and eventually passed 640,592 inspected items.
 
 <figure class="post-figure">
   <img src="/assets/img/posts/bulletproof-azure-storage/shot-640k.png" alt="Azure Storage Explorer listing a public container of multi-part backup files, with the inspected-item counter at 640,592">
@@ -37,13 +35,13 @@ At 1,105,592 inspected items, with 70 GiB (approximately 75 GB) already identifi
   <img src="/assets/img/posts/bulletproof-azure-storage/shot-stats.png" alt="Azure Storage Explorer statistics showing 1,105,592 items inspected and a partial 69.99 GiB result before the calculation was cancelled">
 </figure>
 
-After informing them of the exposed container, I continued the analysis to determine its full scale. The final count eventually reached **1,351,045 items representing 168.96 GB of data**.
+After informing them of the exposed container, I continued the analysis to determine its full scale. The analysis ended at **1,351,045 items representing 168.96 GB of data**.
 
 The container had a huge directory-like structure containing certificates, logs, SQL queries, application configuration, hardcoded credentials, customer and subsidiary data, and a lot of financial information. Browsing the structure and reviewing a small selection of files through Azure Storage Explorer was already enough to confirm how sensitive the exposed data was.
 
 Think about it. No exploit, no authentication bypass and no stolen credentials. I simply connected to the Storage Account anonymously.
 
-**The logging situation made it even worse..**
+**And the customer could not see any of it.**
 
 After I called the customer, they checked their monitoring but could not find any evidence of me listing the container or accessing its contents. The Blob data-plane logs that could have recorded my requests had never been enabled through a diagnostic setting. I was not surprised, as I repeatedly encounter Azure resources without diagnostic logging enabled during security assessments.
 
@@ -70,13 +68,13 @@ Configuration files, database exports, certificate files, deployment packages, b
 
 ## Why did the anonymous connection work?
 
-Public network access and anonymous data access are separate settings.
+Public network access and anonymous data access are separate settings. For my anonymous connection to work, three conditions had to line up:
 
-For my anonymous connection to work, 3 things had to line up:
+1. The Blob endpoint had to be reachable from the internet.
+2. The Storage Account had to permit anonymous Blob access.
+3. The container itself had to be configured with a public access level.
 
-1. The Blob endpoint was reachable from the internet.
-2. The storage account permitted anonymous Blob access through `allowBlobPublicAccess`.
-3. The container itself had been configured with a public access level.
+All three were true.
 
 <figure class="post-figure transparent-figure">
   <img src="/assets/img/posts/bulletproof-azure-storage/anon-three-settings-t3.png" alt="Diagram showing that a public endpoint, anonymous Blob access and a public container access level were all required for the anonymous connection to succeed, and that any one of them would have blocked it">
@@ -166,7 +164,11 @@ Then review the high-impact management-plane permissions that can expose, weaken
   <img src="/assets/img/posts/bulletproof-azure-storage/mgmt-permissions.png" alt="List of Azure management-plane permissions that can expose or weaken the data plane, including listKeys, listAccountSas, listServiceSas, roleAssignments write, storageAccounts write, containers write, containers setAcl, regenerateKey and delete">
 </figure>
 
-Then assume that preventive controls may eventually fail. **Enable soft delete and versioning**, **protect critical data with immutability** and **keep a vaulted backup** outside the Storage Account. **Enable data-plane logging** as well. Without it, you may stop the incident but never find out what happened before the fix.
+Then assume that preventive controls may eventually fail. **Enable soft delete and versioning**, **protect critical data with immutability** and **keep a vaulted backup** outside the Storage Account.
+
+**Enable data-plane logging**, but decide beforehand where those logs should go and how long they need to be retained. On a busy Storage Account, every read, write, delete and list operation can produce a log entry. Sending everything to Log Analytics provides fast querying and alerting, but the ingestion and retention costs can become significant.
+
+For critical Storage Accounts, I would keep the logs needed for detection in Log Analytics and archive them to a separate, protected Storage Account when longer retention is required. If anonymous access is a concern, `StorageRead` logging is essential, even though it may generate the highest volume.
 
 And maybe the most important thing, enforce these security settings with **Azure Policy**. Manually fixing the existing Storage Accounts only solves today's problems. Azure Policy can **audit or block new Storage Accounts that do not meet the baseline**, preventing the same misconfigurations from being introduced ever again..
 
@@ -175,6 +177,8 @@ And maybe the most important thing, enforce these security settings with **Azure
   <figcaption>A practical baseline for hardening an Azure Storage Account.</figcaption>
 </figure>
 
-The Storage Account in this story was not exposed by an advanced exploit. Three ordinary settings lined up, and no diagnostic logs recorded the result. Fixing just one of those settings would have stopped my anonymous connection.
+The Storage Account in this story was not exposed through an advanced exploit. The endpoint was publicly reachable, anonymous Blob access was permitted and the container itself was public. Changing any one of those settings would have stopped my connection.
 
-So, how bulletproof are your Storage Accounts?
+The absence of data-plane logging meant the customer could fix the exposure, but could not determine who had accessed the container before then.
+
+Most exposed Storage Accounts do not look unusual. The difference often comes down to a few settings that were never properly configured or enforced. It is worth checking yours before someone else does.
