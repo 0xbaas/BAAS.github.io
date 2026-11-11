@@ -4,7 +4,7 @@ date: 2026-08-17 09:00:00 +0200
 categories: [Cloud Security]
 tags: [azure, storage, cloud-security, hardening]
 image:
-  path: /assets/img/posts/bulletproof-azure-storage/banner-final.png
+  path: /assets/img/posts/bulletproof-azure-storage/banner.png
   alt: How 1.4M items and almost 170 GB of data were exposed through an Azure Storage Account, and how to prevent it from happening to yours.
 ---
 

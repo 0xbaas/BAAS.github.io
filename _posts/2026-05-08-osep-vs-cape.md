@@ -3,9 +3,9 @@ title: "OSEP vs HTB CAPE: My honest take after passing both"
 date: 2026-05-08 00:00:00 +0200
 categories: [Certifications]
 tags: [osep, htb-cape, active-directory, red-teaming, kerberos, offsec]
-description: "My honest comparison of OSEP and HTB CAPE after passing both, covering the pros and cons of each certification and which one you should choose depending on your goals."
+description: "After passing HTB CAPE and OSEP, I compare the pros and cons of each certification and which one you should choose depending on your goals."
 image:
-  path: /assets/img/posts/osep-vs-htb-cape/cape_vs_osep.png
+  path: /assets/img/posts/osep-vs-htb-cape/cape-vs-osep.png
   alt: OSEP and HTB CAPE comparison blog
 ---
 
@@ -78,7 +78,7 @@ Here are a couple of examples that should be covered in any serious modern AD co
 ## What makes CAPE a great course
 
 <figure class="post-figure wide-figure shadow-figure">
-  <img src="/assets/img/posts/osep-vs-htb-cape/CAPE_description.jpg" alt="Contents of HTB CAPE">
+  <img src="/assets/img/posts/osep-vs-htb-cape/cape-description.jpg" alt="Contents of HTB CAPE">
 </figure>
 
 CAPE feels like it was built by people who actually wanted to teach hackers advanced Active Directory.
@@ -136,13 +136,13 @@ OSEP was honestly not as hard as I expected. The exam was really fun, but the bi
 OSEP is a 48-hour hands-on exam. You compromise machines, pivot, deal with AV and write a report. You will need at least 10 points or get the `secret.txt`. Without relying on a C2, I completed it in around nine hours.
 
 <figure class="post-figure">
-  <img src="/assets/img/posts/osep-vs-htb-cape/osep_result.jpg" alt="OSEP exam results">
+  <img src="/assets/img/posts/osep-vs-htb-cape/osep-result.jpg" alt="OSEP exam results">
 </figure>
 
 CAPE felt larger, more modern and more demanding. The exam forced you to enumerate properly, take solid notes and chain multiple attacks across the environment. I probably would not have passed without doing a lot of preparation on VulnLab first, especially because one of the forests was well configured and therefore much harder to attack. VulnLab’s AD Chains helped me a lot during my prep. You will need more than the course to pass in my opinion.
 
 <figure class="post-figure wide-figure">
-  <img src="/assets/img/posts/osep-vs-htb-cape/htb_profile.png" alt="HTB profile showing CAPE exam passed">
+  <img src="/assets/img/posts/osep-vs-htb-cape/htb-profile.png" alt="HTB profile showing CAPE exam passed">
 </figure>
 
 CAPE is a 10-day hands-on exam across multiple networks. You need to collect enough points and submit a proper commercial-style report. You will also need 90/100 points which is very strict in my opinion.

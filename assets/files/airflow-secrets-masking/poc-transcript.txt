@@ -1,0 +1,36 @@
+Loading module from: .......\.......\targets\airflow\shared\secrets_masker\src\airflow_shared\secrets_masker\secrets_masker.py
+Exists: True
+Python: 3.11.9
+
+=== Sensitive key detection ===
+  'privateKey'           -> False
+  'serviceAccount'       -> False
+  'connectionString'     -> False
+  'webhookUrl'           -> False
+  'clientSecret'         -> True
+  'apiKey'               -> True
+  'accessToken'          -> True
+  'password'             -> True
+  'private_key'          -> True
+  'service_account'      -> True
+  'connection_string'    -> True
+  'webhook_url'          -> True
+  'api_key'              -> True
+  'access_token'         -> True
+
+=== JSON payload redaction ===
+  input    : {'privateKey': '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASC...', 'serviceAccount': 'my-sa@project.iam.gserviceaccount.com', 'connectionString': 'Server=db;User Id=app;Password=Welkom01;', 'webhookUrl': 'https://hooks.example.com/services/T000/B000/secret-token', 'note': 'not sensitive'}
+  redacted : {'privateKey': '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASC...', 'serviceAccount': 'my-sa@project.iam.gserviceaccount.com', 'connectionString': 'Server=db;User Id=app;Password=Welkom01;', 'webhookUrl': 'https://hooks.example.com/services/T000/B000/secret-token', 'note': 'not sensitive'}
+
+  input    : {'private_key': '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASC...', 'service_account': 'my-sa@project.iam.gserviceaccount.com', 'connection_string': 'Server=db;User Id=app;Password=Welkom01;', 'webhook_url': 'https://hooks.example.com/services/T000/B000/secret-token'}
+  redacted : {'private_key': '***', 'service_account': '***', 'connection_string': '***', 'webhook_url': '***'}
+
+  redact(secret, name='privateKey') -> '-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASC...'
+  redact(secret, name='private_key') -> '***'
+
+=== Summary ===
+  camelCase keys not detected     : 4
+  snake_case controls passed     : True
+  camelCase values remain unmasked: True
+  snake_case values masked       : True
+  CONFIRMED: camelCase keys bypass key-based redaction
