@@ -2,7 +2,7 @@
 layout: post
 title: "The PlayStation 0day that could take over any PSN account"
 date: 2026-11-23 07:00:00 +0100
-description: "I received a $5,000 bug bounty from PlayStation after discovering a zero-day that enabled full account takeover, even with 2FA and passkeys enabled. Weeks after the vulnerability was patched, reports of compromised PSN accounts started going viral in Japan."
+description: "I received a $5,000 bug bounty from PlayStation after discovering a zero-day that made a full account takeover, even with 2FA and passkeys enabled, possible. Weeks after the vulnerability was patched, reports of compromised PSN accounts started going viral in Japan."
 categories: [Security Research]
 tags: [playstation, psn, zero-day, account-takeover, bug-bounty, responsible-disclosure]
 
