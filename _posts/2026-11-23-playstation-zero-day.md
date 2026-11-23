@@ -48,7 +48,7 @@ I successfully took over my wife's PSN account. PlayStation changed the sign-in 
 
 What surprised me was that her 2FA didn't stop me. I later found out that **passkeys wouldn't stop the same attack chain either.**
 
-_I haven't shared the exact account recovery steps and sensitive technical details at PlayStation's request._
+_I can't disclose the exact account recovery steps and sensitive technical details at PlayStation's request._
 
 If the family manager had a credit card linked to their PSN account and child account spending was enabled, an attacker could also make purchases using the victim's payment method.
 
@@ -101,14 +101,14 @@ Japanese gaming sites including [4Gamer](https://www.4gamer.net/games/990/G99902
 
 After the reports went viral in Japan, the story started spreading internationally. I began seeing similar reports from PlayStation users in Europe and the United States.
 
-One user on [Reddit](https://www.reddit.com/r/psn/comments/1x7l1ga/five_unauthorized_accounts_added_under_my_main/) reported finding five unauthorized child accounts linked to his PSN account despite using a passkey. Other players reported losing access to their accounts entirely.
+Another user on [Reddit](https://www.reddit.com/r/psn/comments/1x7l1ga/five_unauthorized_accounts_added_under_my_main/) reported finding five unauthorized child accounts linked to his PSN account despite using a passkey. Other players reported losing access to their accounts entirely.
 
 
 The issue was now getting attention well beyond Japan, with accounts like Pirat Nation and International Cyber Digest sharing the story.
 
 <blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/Pirat_Nation/status/2115151932448735324">View Pirat Nation's post on X</a></blockquote>
 
-I received messages from affected users as well, particularly from Japan. Several told me they couldn't remove the unknown child accounts themselves and had to go through PlayStation Support. The unauthorized family relationships looked very familiar after what I'd seen on my own test accounts.
+I received messages from affected users as well, particularly from Japan. Several told me they couldn't remove the unknown child accounts themselves and had to go through PlayStation Support.
 
 After the story went viral, PlayStation finally started removing the malicious child accounts. The child accounts I had used in my own tests were permanently banned as well. This was the cleanup I had been asking for since the patch.
 
@@ -127,10 +127,6 @@ After connecting the dots, he wrote a detailed post explaining the situation and
 I asked him to spread the word about unauthorized passkeys as well, especially for players who had already recovered their accounts. He checked his own passkeys and told me that his previous passkey had stopped working after recovery.
 
 ![Messages from a Japanese player whose PSN account was recovered](/assets/img/posts/playstation-zero-day/japan-victim-recovery.png)
-*An affected Japanese player describing the account takeover and recovery through PlayStation Support.*
-
-He later sent me a message thanking me for the research, which I appreciated.
-
 ![Follow-up message from the affected Japanese player](/assets/img/posts/playstation-zero-day/japan-victim-feedback.png)
 
 ## Sony confirmed the vulnerability
@@ -139,7 +135,7 @@ On November 5, [PSXNAVI published an email from Sony](https://psxnavi.com/games/
 Sony also confirmed that the family manager's name and email address could be viewed through these accounts. It said it was investigating affected users and removing child accounts added through the vulnerability.
 
 ## Reporting it to PlayStation and the $5,000 bounty
-I reported the full finding through PlayStation's HackerOne program. My report was rated **High (8.6)** and was later resolved.
+I reported the all of my research through PlayStation's HackerOne program. My report was rated **High (8.6)** and was later resolved.
 
 
 ![PlayStation zero-day HackerOne report showing High severity, resolved status and $5,000 bounty](/assets/img/posts/playstation-zero-day/hackerone-report-summary.png)
