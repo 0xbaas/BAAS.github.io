@@ -92,7 +92,7 @@ Manga artist Imigimuru also posted about being affected:
 
 <blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/imigimuru/status/2114565109528039445">View Imigimuru's post on X</a></blockquote>
 
-One report that stood out was from a writer at [AKIBA PC Hotline!](https://akiba-pc.watch.impress.co.jp/docs/news/news/2151333.html), who had been affected himself. He found five child accounts he hadn't added, **despite using a passkey and a largely private sign-in email address.** He had to contact PlayStation Support to get them removed.
+One report that stood out was from a writer at [AKIBA PC Hotline!](https://akiba-pc.watch.impress.co.jp/docs/news/news/2151333.html), who had been affected himself. He found five child accounts he hadn't added, **despite using a passkey and a sign-in email address which he only uses for PSN.** He had to contact PlayStation Support to get them removed.
 
 The number of child accounts made me suspect that the attacks were automated. **Seeing these reports also made me wonder how big this hack could have become if the vulnerability hadn't been patched.**
 
