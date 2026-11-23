@@ -142,12 +142,9 @@ I reported the all of my research through PlayStation's HackerOne program. My re
 *My PlayStation HackerOne report, rated High (8.6), resolved and awarded a $5,000 bounty.*
 
 
-I also continued helping PlayStation after the patch, sharing additional observations from my research and suggesting checks they could add to verify the fix and find unauthorized child accounts that were still linked. On October 23, a PlayStation staff member thanked me again for reporting the issue and for our continued collaboration.
+I also continued helping PlayStation after the patch, sharing additional observations from my research and suggesting checks they could add to verify the fix and find unauthorized child accounts that were still linked. On October 23, a PlayStation staff member thanked me again for reporting the issue and for my continued collaboration even after the payout.
 
 ![PlayStation staff thanking me for continued collaboration](/assets/img/posts/playstation-zero-day/playstation-staff-followup.png)
-
-PlayStation awarded me a **$5,000 bounty** for the Family Management finding.
-
 
 ## Timeline
 
