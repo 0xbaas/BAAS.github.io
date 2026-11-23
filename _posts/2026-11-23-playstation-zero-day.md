@@ -10,7 +10,7 @@ image:
   path: /assets/img/posts/playstation-zero-day/cover.png
 ---
 
-On October 5, 2026, I discovered a zero-day in PlayStation Network (PSN) that allowed me to add a child account to someone else's PlayStation family without their knowledge or approval. What initially looked like an information disclosure issue turned into something much bigger: I managed to chain it into a full account takeover (ATO), even with 2FA or passkeys enabled.
+In early October I discovered a zero-day in PlayStation Network (PSN) that allowed me to add a child account to someone else's PlayStation family without their knowledge or approval. What initially looked like an information disclosure issue turned into something much bigger: I managed to chain it into a full account takeover (ATO), even with 2FA or passkeys enabled.
 
 Sony patched the vulnerability just three days later and awarded me a **$5,000 bug bounty**. But that wasn't the end of the story. A few weeks later, reports of compromised PSN accounts started spreading across Japan, with affected players discovering unauthorized child accounts linked to their families.
 
@@ -51,6 +51,10 @@ What surprised me was that her 2FA didn't stop me. I later found out that **pass
 
 _I haven't shared the exact account recovery steps and sensitive technical details at PlayStation's request._
 
+If the family manager had a credit card linked to their PSN account and child account spending was enabled, an attacker could also make purchases using the victim's payment method.
+
+This made the vulnerability more than just an information disclosure issue. It could also lead to unauthorized purchases, even before taking over the account entirely.
+
 ## Did it work outside Europe?
 After the first takeover, I wanted to see if the vulnerability worked in other regions. I created test accounts using a VPN from North America, Singapore and Japan.
 
@@ -62,9 +66,7 @@ There was also no effective rate limiting, making automated attacks against **la
 
 To test whether an attacker could maintain access after account recovery, I registered a passkey on my wife's account. She then recovered it through PlayStation Support, which restored her original sign-in email.
 
-**But my passkey still worked.** I could sign in and change her email address again. Because the passkey remained linked to the PSN account, an attacker could maintain access even after recovery unless the passkey was explicitly removed.
-
-I reported this to PlayStation and warned affected users to check for unauthorized passkeys.
+**But my passkey still worked.** I could sign in and change her email address again. Because the passkey remained linked to the PSN account, an attacker could maintain access even after recovery **unless she explicitly removed the passkey herself through account settings.**
 
 ## The backdoors were still there after the patch
 
