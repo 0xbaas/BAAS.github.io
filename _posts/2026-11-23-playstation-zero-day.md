@@ -34,7 +34,6 @@ From the child account, I could see her full name, email address and other sensi
 ![Unauthorized child account linked to my wife's PlayStation family](/assets/img/posts/playstation-zero-day/family-backdoor.png)
 *The child account being able to read a lot of sensitive information*
 
-## She couldn't remove the child account
 PlayStation Family Management is supposed to let parents manage their children's accounts, set spending limits and configure parental controls. Yet I could add a child account without the family manager's approval, while she couldn't even remove it herself. She had to contact PlayStation Support.
 
 And to be fair, Family Management isn't exactly something people check regularly. Without any notification, most users wouldn't even realize an unknown child account had been added to their family.
