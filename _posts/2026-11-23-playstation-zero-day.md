@@ -10,9 +10,9 @@ image:
   path: /assets/img/posts/playstation-zero-day/cover.png
 ---
 
-In early October I discovered a zero-day in PlayStation Network (PSN) that allowed me to add a child account to someone else's PlayStation family without their knowledge or approval. What initially looked like an information disclosure issue turned into something much bigger: I managed to chain it into a full account takeover (ATO), even with 2FA or passkeys enabled.
+In early October I discovered a zero-day in PlayStation Network (PSN) that allowed me to add a child account to someone else's PlayStation family without their knowledge or approval. 	I initially thought I had found an information disclosure vulnerability. I managed to chain it into a full account takeover (ATO), even with 2FA or passkeys enabled.
 
-Sony patched the vulnerability just three days later and awarded me a **$5,000 bug bounty**. But that wasn't the end of the story. A few weeks later, reports of compromised PSN accounts started spreading across Japan, with affected players discovering unauthorized child accounts linked to their families.
+Sony patched the vulnerability just three days later and awarded me a **$5,000 bug bounty**. A few weeks later, reports of compromised PSN accounts started spreading across Japan, with affected players discovering unauthorized child accounts linked to their families.
 
 ![International Cyber Digest covering my PlayStation zero-day](/assets/img/posts/playstation-zero-day/international-cyber-digest.png)
 
@@ -24,7 +24,7 @@ I've been reporting security vulnerabilities to PlayStation since its bug bounty
 
 Back in September 2026, with all the hype around GTA 6, I noticed quite a few hackers taking another look at PlayStation's security. Several vulnerabilities had recently been reported, mostly involving kernel and usermode exploits. Seeing all that activity made me want to jump back in myself. I wanted to focus on PlayStation Network rather than the console itself. 
 
-After a couple days I found something which could be **chained into something very crazy.**
+After a couple of days I found something which could be **chained into something very crazy.**
 
 ## Testing the zero-day on my wife's account
 I first tested the vulnerability on my wife's PSN account to see how the attack would play out against a real account. I was able to add a child account to her PlayStation family without her having to approve anything. The only email she received was about updated terms and conditions. Nothing in that email told her a child account had been added.
@@ -48,11 +48,9 @@ I successfully took over my wife's PSN account. PlayStation changed the sign-in 
 
 What surprised me was that her 2FA didn't stop me. I later found out that **passkeys wouldn't stop the same attack chain either.**
 
-_I can't disclose the exact account recovery steps and sensitive technical details at PlayStation's request._
+_At PlayStation's request, I've left out the exact account recovery steps and sensitive technical details._
 
 If the family manager had a credit card linked to their PSN account and child account spending was enabled, an attacker could also make purchases using the victim's payment method.
-
-This made the vulnerability more than just an information disclosure issue. It could also lead to unauthorized purchases, even before taking over the account entirely.
 
 ## Did it work outside Europe?
 After the first takeover, I wanted to see if the vulnerability worked in other regions. I created test accounts using a VPN from North America, Singapore and Japan.
@@ -61,7 +59,7 @@ After the first takeover, I wanted to see if the vulnerability worked in other r
 
 There was also no effective rate limiting, making automated attacks against **large numbers of accounts possible.**
 
-## Passkeys could provide lifetime persistence after an ATO
+## Passkeys could still provide access even after account recovery
 
 To test whether an attacker could maintain access after account recovery, I registered a passkey on my wife's account. She then recovered it through PlayStation Support, which restored her original sign-in email.
 
@@ -91,7 +89,7 @@ Manga artist Imigimuru also posted about being affected:
 
 <blockquote class="twitter-tweet" data-theme="dark"><a href="https://twitter.com/imigimuru/status/2114565109528039445">View Imigimuru's post on X</a></blockquote>
 
-One report that stood out was from a writer at [AKIBA PC Hotline!](https://akiba-pc.watch.impress.co.jp/docs/news/news/2151333.html), who had been affected himself. He found five child accounts he hadn't added, **despite using a passkey and a sign-in email address which he only uses for PSN.** He had to contact PlayStation Support to get them removed.
+One report that stood out was from a writer at [AKIBA PC Hotline!](https://akiba-pc.watch.impress.co.jp/docs/news/news/2151333.html), who had been affected himself. He found five child accounts he hadn't added, **despite using a passkey and an email address he used exclusively for PSN.** He had to contact PlayStation Support to get them removed.
 
 The number of child accounts made me suspect that the attacks were automated. **Seeing these reports also made me wonder how big this hack could have become if the vulnerability hadn't been patched.**
 
@@ -110,9 +108,9 @@ The issue was now getting attention well beyond Japan, with accounts like Pirat 
 
 I received messages from affected users as well, particularly from Japan. Several told me they couldn't remove the unknown child accounts themselves and had to go through PlayStation Support.
 
-After the story went viral, PlayStation finally started removing the malicious child accounts. The child accounts I had used in my own tests were permanently banned as well. This was the cleanup I had been asking for since the patch.
+After the story went viral, PlayStation finally started removing the malicious child accounts. The child accounts I had used in my own tests were permanently banned as well. I had been asking PlayStation to do this since October 8.
 
-## Why I decided to warn affected players
+## Why I decided to warn affected players despite the ongoing investigation
 Because PlayStation hadn't removed the backdoors from my own test accounts, I was worried the same thing would happen to those actual victims. Even after recovering their accounts, those unknown child accounts could still be linked to their families and the ATO chain could be repeated.
 
 I decided to share a high-level explanation of the issue so affected players knew what to check. I urged them to contact PlayStation Support about unfamiliar child accounts and remove any passkeys they didn't recognize. PlayStation later asked me to take those posts down. 
@@ -122,7 +120,7 @@ I later posted a warning on X, reminding affected players to check for unauthori
 
 A Japanese tech enthusiast who had been hacked himself came across my original posts about unauthorized child accounts, which I'd taken down shortly after PlayStation asked me to remove them. He decided to investigate further and eventually found my HackerOne profile, where he noticed the $5,000 PlayStation bounty.
 
-After connecting the dots, he wrote a detailed post explaining the situation and encouraging Japanese players to check their Family Management settings. He also reached out to me through DMs, telling me that his own account had been taken over and that he'd managed to recover it through PlayStation Support.
+He then wrote a detailed post explaining the situation and encouraging Japanese players to check their Family Management settings. He also reached out to me through DMs, telling me that his own account had been taken over and that he'd managed to recover it through PlayStation Support but those child accounts were still sitting there.
 
 I asked him to spread the word about unauthorized passkeys as well, especially for players who had already recovered their accounts. He checked his own passkeys and told me that his previous passkey had stopped working after recovery.
 
@@ -135,7 +133,7 @@ On November 5, [PSXNAVI published an email from Sony](https://psxnavi.com/games/
 Sony also confirmed that the family manager's name and email address could be viewed through these accounts. It said it was investigating affected users and removing child accounts added through the vulnerability.
 
 ## Reporting it to PlayStation and the $5,000 bounty
-I reported the all of my research through PlayStation's HackerOne program. My report was rated **High (8.6)** and was later resolved.
+I reported all of my research through PlayStation's HackerOne program. My report was rated **High (8.6)** and was later resolved.
 
 
 ![PlayStation zero-day HackerOne report showing High severity, resolved status and $5,000 bounty](/assets/img/posts/playstation-zero-day/hackerone-report-summary.png)
